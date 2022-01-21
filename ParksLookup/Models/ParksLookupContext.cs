@@ -16,7 +16,7 @@ namespace ParksLookup.Models
     {
       builder.Entity<Park>()
           .HasData(
-              new Park { ParkId = 1, NatOrState = "National", Name = "Yellowstone", State = "Wyoming, Montana, Idaho", Rating = 10 },
+              new Park { ParkId = 1, NatOrState = "National", Name = "Yellowstone", State = "Wyoming", Rating = 10 },
               new Park { ParkId = 2, NatOrState = "National", Name = "Zion", State = "Utah", Rating = 9 },
               new Park { ParkId = 3, NatOrState = "State", Name = "Barr Lake State Park", State = "Colorado", Rating = 9 },
               new Park { ParkId = 4, NatOrState = "State", Name = "Rock Bridge State Park", State = "Missouri", Rating = 8 }

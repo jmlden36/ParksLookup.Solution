@@ -19,7 +19,7 @@ namespace ParksLookup.Controllers
     {
       _db = db;
     }
-
+    
     [HttpGet]
     public ActionResult<IEnumerable<Park>> Get(string natOrState, string name, string state, int rating)
     {
@@ -45,7 +45,18 @@ namespace ParksLookup.Controllers
         query = query.Where(entry => entry.Rating == rating);
       }
 
+      
+
       return query.ToList();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Park>> Post(Park park)
+    {
+      _db.Parks.Add(park);
+      await _db.SaveChangesAsync();
+
+      return CreatedAtAction("Post", new { id = park.ParkId }, park);
     }
   }
 }
