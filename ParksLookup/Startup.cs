@@ -21,6 +21,12 @@ namespace ParksLookup
 
             services.AddDbContext<ParksLookupContext>(opt =>
                 opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+                
+                services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(builder => builder.AllowAnyOrigin());
+                });
+                
             services.AddControllers();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -33,6 +39,8 @@ namespace ParksLookup
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors();
 
             app.UseAuthorization();
 
