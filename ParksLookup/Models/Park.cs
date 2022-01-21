@@ -13,6 +13,6 @@ namespace ParksLookup.Models
         public string State { get; set; }
         [Required]
         [Range(0, 10, ErrorMessage = "Rating must be between 0 and 10.")]
-        public int rating { get; set; }
+        public int Rating { get; set; }
     }
 }

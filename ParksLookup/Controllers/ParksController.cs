@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CretaceousPark.Models;
+using ParksLookup.Models;
 
 namespace ParksLookup.Controllers
 {
@@ -18,6 +18,34 @@ namespace ParksLookup.Controllers
     public ParksController(ParksLookupContext db)
     {
       _db = db;
+    }
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Park>> Get(string natOrState, string name, string state, int rating)
+    {
+      var query = _db.Parks.AsQueryable();
+      
+      if (natOrState != null)
+      {
+        query = query.Where(entry => entry.NatOrState == natOrState);
+      }
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      if (state != null)
+      {
+        query = query.Where(entry => entry.State == state);
+      }
+
+      if (rating != null)
+      {
+        query = query.Where(entry => entry.Rating == rating);
+      }
+
+      return query.ToList();
     }
   }
 }
