@@ -39,15 +39,22 @@ namespace ParksLookup.Controllers
       {
         query = query.Where(entry => entry.State == state);
       }
-
-      if (rating != null)
-      {
-        query = query.Where(entry => entry.Rating == rating);
-      }
-
       
 
       return query.ToList();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Park>> GetPark(int id)
+    {
+        var park = await _db.Parks.FindAsync(id);
+
+        if (park == null)
+        {
+            return NotFound();
+        }
+
+        return park;
     }
 
     [HttpPost]
@@ -57,6 +64,55 @@ namespace ParksLookup.Controllers
       await _db.SaveChangesAsync();
 
       return CreatedAtAction("Post", new { id = park.ParkId }, park);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Park park)
+    {
+      if (id != park.ParkId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(park).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ParkExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return RedirectToAction("GetPark", new {id = id});
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePark(int id)
+    {
+      var park = await _db.Parks.FindAsync(id);
+      if (park == null)
+      {
+        return NotFound();
+      }
+
+      _db.Parks.Remove(park);
+      await _db.SaveChangesAsync();
+
+      return RedirectToAction("Get");
+    }
+
+    private bool ParkExists(int id)
+    {
+      return _db.Parks.Any(e => e.ParkId == id);
     }
   }
 }
