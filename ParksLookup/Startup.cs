@@ -18,16 +18,19 @@ namespace ParksLookup
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApiVersioning();
 
             services.AddDbContext<ParksLookupContext>(opt =>
                 opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
-                
                 services.AddCors(options =>
                 {
                     options.AddDefaultPolicy(builder => builder.AllowAnyOrigin());
                 });
                 
             services.AddControllers();
+            
+            
+            
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

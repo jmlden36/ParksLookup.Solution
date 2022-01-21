@@ -9,6 +9,7 @@ using ParksLookup.Models;
 
 namespace ParksLookup.Controllers
 {
+  [ApiVersion( "1.0" )]
   [Route("api/[controller]")]
   [ApiController]
   public class ParksController : ControllerBase
