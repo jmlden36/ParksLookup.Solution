@@ -1,0 +1,6 @@
+EnvironmentVariables.cs
+*/obj/
+*/bin/
+.vscode
+*/appsettings.json
+.DS_Store
