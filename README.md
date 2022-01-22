@@ -142,7 +142,7 @@ An API that allows for the creation, reading, updating, and deleting of national
   #### Launch the API
   1) Navigate to ParksLookup.Solution directory using the MacOS Terminal or Windows Powershell (e.g. `cd Desktop/ParksLookup.Solution`).
   2) Run the command `dotnet run` to have access to the API in Postman or browser.
-  
+  ___________________________
   ## API Documentation
   Explore the API endpoints in Postman or a browser.
 
